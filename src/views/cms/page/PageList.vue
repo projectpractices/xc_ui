@@ -19,7 +19,16 @@
       <el-table-column prop="pageType"  label="页面类型"  width="150"/>
       <el-table-column prop="pageWebPath"  label="访问路径"  width="250"/>
       <el-table-column prop="pagePhysicalPath"  label="物理路径"  width="250"/>
-      <el-table-column prop="pageCreateTime" fixed="right"  label="创建时间"  width="180"  />
+      <el-table-column prop="pageCreateTime" fixed="right"  label="创建时间"  width="180"/>
+      <el-table-column
+        fixed="right"
+        label="操作"
+        width="100">
+        <template slot-scope="scope">
+          <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
+          <el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
+        </template>
+      </el-table-column>
     </el-table>
     <el-pagination background layout="prev, pager, next" :total="total" :page-size="params.size"
                    :current-page="params.page"
@@ -49,10 +58,22 @@
         },
         methods: {
             query: function () {
-                cmsApi.page_list(this.params.page, this.params.size, this.queryparams).then(res => {
+                cmsApi.page_pagelist(this.params.page, this.params.size, this.queryparams).then(res => {
                     this.tableData = res.queryResult.list;
                     this.total = res.queryResult.total;
                 })
+            },
+            /*handphase: function (row, column) {
+                //console.log(row['pageName'])
+                /!*if (row['pageName']) {
+                    row['pageName'] = row['pageName'].substr(1, 5)
+                    // console.log(row['pageName'].substr(1, 5))
+                    this.tableData.pageName = row['pageName'];
+                    // console.log(this.tableData.pageName)
+                }*!/
+            },*/
+            handleClick: function (res) {
+                alert(res.pageId);
             },
             handleCurrentChange(val) {
                 this.params.page = val;
@@ -61,9 +82,8 @@
         },
         mounted() {//钩子方法
             this.query();
-            cmsApi.all_list().then(res => {
+            cmsApi.page_list().then(res => {
                 this.selectOptionData = res.queryResult.list;
-                console.log(this.selectOptionData)
             })
         },
         created() {
