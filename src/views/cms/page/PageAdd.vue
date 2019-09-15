@@ -1,8 +1,8 @@
 <template>
   <div>
-    <el-form ref="form" :model="pageForm" label-width="80px" style="width: 400px;">
-      <el-form-item label="所属站点">
-        <el-select v-model="pageForm.siteId" placeholder="请选择站点">
+    <el-form :model="pageForm" :rules="rules" ref="pageForm" label-width="80px" style="width: 400px;">
+      <el-form-item label="所属站点" prop="siteId">
+        <el-select v-model="pageForm.siteId" placeholder="请选择站点" >
           <el-option v-for="item in siteList"
                      :key="item.siteId"
                      :label="item.siteName"
@@ -10,8 +10,8 @@
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="选择模板">
-        <el-select v-model="pageForm.templateId" placeholder="请选择模板">
+      <el-form-item label="选择模板" prop="templateId">
+        <el-select v-model="pageForm.templateId" placeholder="请选择模板" >
           <el-option v-for="item in templateList"
                      :key="item.templateId"
                      :label="item.templateName"
@@ -19,26 +19,26 @@
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="页面名称">
-        <el-input v-model="pageForm.pageName" auto-complete="off"/>
+      <el-form-item label="页面名称" prop="pageName">
+        <el-input v-model="pageForm.pageName" auto-complete="off" />
       </el-form-item>
-      <el-form-item label="别名">
-        <el-input v-model="pageForm.pageAliase" auto-complete="off"/>
+      <el-form-item label="别名" prop="pageAliase">
+        <el-input v-model="pageForm.pageAliase" auto-complete="off" />
       </el-form-item>
-      <el-form-item label="访问路径">
-        <el-input v-model="pageForm.pageWebPath" auto-complete="off"/>
+      <el-form-item label="访问路径" prop="pageWebPath">
+        <el-input v-model="pageForm.pageWebPath" auto-complete="off" />
       </el-form-item>
-      <el-form-item label="物理路径">
-        <el-input v-model="pageForm.pagePhysicalPath" auto-complete="off"/>
+      <el-form-item label="物理路径" prop="pagePhysicalPath">
+        <el-input v-model="pageForm.pagePhysicalPath" auto-complete="off" />
       </el-form-item>
-      <el-form-item label="类型">
+      <el-form-item label="类型"  prop="pageType">
         <el-radio-group v-model="pageForm.pageType">
           <el-radio class="radio" label="0">静态</el-radio>
           <el-radio class="radio" label="1">动态</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="创建时间">
-        <el-date-picker v-model="pageForm.pageCreateTime" type="datetime" placeholder="选择日期时间"/>
+      <el-form-item label="创建时间" prop="pageCreateTime">
+        <el-date-picker v-model="pageForm.pageCreateTime" type="datetime" placeholder="选择日期时间" />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">立即创建</el-button>
@@ -67,12 +67,42 @@
                     pagePhysicalPath: '',
                     pageType: '',
                     pageCreateTime: new Date()
+                },
+                rules: {
+                    siteId: [
+                        {required: true, message: '请输入活动名称', trigger: 'blur'}
+                    ],
+                    templateId: [
+                        {required: true, message: '请选择活动区域', trigger: 'blur'}
+                    ],
+                    pageName: [
+                        {required: true, message: '请选择活动区域', trigger: 'blur'}
+                    ],
+                    pageAliase: [
+                        {required: true, message: '请选择活动区域', trigger: 'blur'}
+                    ],
+                    pageWebPath: [
+                        {required: true, message: '请选择活动区域', trigger: 'blur'}
+                    ],
+                    pagePhysicalPath: [
+                        {required: true, message: '请选择活动资源', trigger: 'blur'}
+                    ],
+                    pageCreateTime: [
+                        {type: 'date', required: true, message: '请选择时间', trigger: 'blur'}
+                    ]
                 }
             }
         },
         methods: {
-            onSubmit: function () {
-
+            onSubmit() {
+                this.$refs.pageForm.validate((valid) => {
+                    if (valid) {
+                        alert('submit!');
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
             },
             goBack: function () {
                 this.$router.push({
