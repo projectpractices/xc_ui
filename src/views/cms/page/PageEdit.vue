@@ -40,7 +40,7 @@
           <el-radio class="radio" label="1">动态</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="创建时间" prop="pageCreateTime">
+      <el-form-item label="创建时间">
         <el-date-picker v-model="pageForm.pageCreateTime" type="datetime" placeholder="选择日期时间"/>
       </el-form-item>
       <el-form-item>
@@ -70,7 +70,7 @@
                     pageParameter: '',
                     pagePhysicalPath: '',
                     pageType: '',
-                    pageCreateTime: new Date()
+                    pageCreateTime: ''
                 },
                 rules: {
                     siteId: [
@@ -99,7 +99,6 @@
         },
         methods: {
             onSubmit() {
-                //console.log(this.pageForm.pageId)
                 this.$refs['pageForm'].validate((valid) => {
                     if (valid) {
                         this.$confirm('是否确定提交', '提示', {

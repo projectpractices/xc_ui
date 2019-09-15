@@ -29,7 +29,7 @@ export const page_add = (params) => {
 
 //编辑页面
 export const page_edit = (pageId,params) => {
-  return http.requestPost(apiUrl + '/cms/page/'+ pageId, params);
+  return http.requestPut(apiUrl + '/cms/page/'+ pageId, params);
 };
 
 
