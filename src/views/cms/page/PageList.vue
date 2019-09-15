@@ -6,7 +6,13 @@
       </el-option>
     </el-select>
     <el-button type="primary" plain @click="query()">查询</el-button>
-    <el-table :data="tableData" max-height="600" stripe style="width: 100%" >
+    <router-link :to="{path:'/cms/page/add',query:{
+      page:this.params.page,
+      pageId:this.queryparams.pageId
+    }}">
+      <el-button type="primary" plain @click="query()">添加</el-button>
+    </router-link>
+    <el-table :data="tableData" max-height="600" stripe style="width: 100%">
       <el-table-column type="index" fixed width="60"></el-table-column>
       <el-table-column prop="pageName"  label="页面名称"  width="120"/>
       <el-table-column prop="pageAliase"  label="别名"  width="120"/>
@@ -35,15 +41,15 @@
                     page: 1,//页码
                     size: 10//每页显示个数
                 },
-                queryparams:{
-                    pageId:'',
-                    pageAliase:''
+                queryparams: {
+                    pageId: '',
+                    pageAliase: ''
                 }
             }
         },
         methods: {
             query: function () {
-                cmsApi.page_list(this.params.page, this.params.size,this.queryparams).then(res => {
+                cmsApi.page_list(this.params.page, this.params.size, this.queryparams).then(res => {
                     this.tableData = res.queryResult.list;
                     this.total = res.queryResult.total;
                 })
@@ -55,10 +61,14 @@
         },
         mounted() {//钩子方法
             this.query();
-            cmsApi.all_list().then(res=>{
+            cmsApi.all_list().then(res => {
                 this.selectOptionData = res.queryResult.list;
                 console.log(this.selectOptionData)
             })
+        },
+        created() {
+            this.params.page = Number.parseInt(this.$route.query.page || 1);
+            this.queryparams.pageId = this.$route.query.pageId || '';
         }
     }
 </script>
