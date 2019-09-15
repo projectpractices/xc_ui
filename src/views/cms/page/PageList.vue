@@ -25,7 +25,7 @@
         label="操作"
         width="100">
         <template slot-scope="scope">
-          <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
+          <!--<el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>-->
           <el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
         </template>
       </el-table-column>
@@ -73,7 +73,10 @@
                 }*!/
             },*/
             handleClick: function (res) {
-                alert(res.pageId);
+                this.$router.push({
+                    path:'/cms/page/edit/'+res.pageId
+                })
+
             },
             handleCurrentChange(val) {
                 this.params.page = val;
