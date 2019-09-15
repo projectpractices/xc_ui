@@ -10,6 +10,7 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
+    //解决跨域问题
     proxyTable: {
       '/api/cms': {
         target: 'http://localhost:31001',
