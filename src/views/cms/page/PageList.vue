@@ -25,8 +25,8 @@
         label="操作"
         width="100">
         <template slot-scope="scope">
-          <!--<el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>-->
-          <el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
+          <el-button @click="pageDelete(scope.row)" type="text" size="small">删除</el-button>
+          <el-button @click="pageEdit(scope.row)" type="text" size="small">编辑</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -63,20 +63,20 @@
                     this.total = res.queryResult.total;
                 })
             },
-            /*handphase: function (row, column) {
-                //console.log(row['pageName'])
-                /!*if (row['pageName']) {
-                    row['pageName'] = row['pageName'].substr(1, 5)
-                    // console.log(row['pageName'].substr(1, 5))
-                    this.tableData.pageName = row['pageName'];
-                    // console.log(this.tableData.pageName)
-                }*!/
-            },*/
-            handleClick: function (res) {
+            pageEdit: function (res) {
                 this.$router.push({
                     path:'/cms/page/edit/'+res.pageId
                 })
-
+            },
+            pageDelete: function (dval) {
+                cmsApi.page_delete(dval.pageId).then(res => {
+                    if (res.success){
+                        this.$message.success('删除成功');
+                        this.query();
+                    }else {
+                        this.$message.success('删除失败');
+                    }
+                })
             },
             handleCurrentChange(val) {
                 this.params.page = val;
