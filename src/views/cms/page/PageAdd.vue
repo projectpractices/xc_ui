@@ -106,6 +106,8 @@
                                 if (res.success) {
                                     this.$message.success('保存成功');
                                     this.$refs['pageForm'].resetFields();
+                                }else if (res.message){
+                                    this.$message.error(res.message);
                                 }else {
                                     this.$message.error('保存失败');
                                 }
