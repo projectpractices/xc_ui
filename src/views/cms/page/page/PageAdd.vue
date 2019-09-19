@@ -49,7 +49,7 @@
 </template>
 
 <script>
-    import * as cmsApi from '../api/cms'
+    import * as cmsApi from '../../api/cms'
 
     export default {
         name: 'pageForm',
@@ -135,6 +135,9 @@
 
         },
         created() {
+            cmsApi.page_list().then(res => {
+                console.log(res)
+            }),
             //初始化站点列表
             this.siteList = [
                 {

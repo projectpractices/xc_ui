@@ -11,11 +11,11 @@ export const page_pagelist = (page, size, params) => {
   return http.requestQuickGet(apiUrl + '/cms/page/' + page + '/' + size + '?' + kv);
 };
 
-//查询详情
+/*//查询详情
 export const page_one = (params) => {
   //请求服务端的页面查询接口
   return http.requestQuickGet(apiUrl + '/cms/page/' + params);
-};
+};*/
 
 //查询所有
 export const page_list = () => {
@@ -35,14 +35,6 @@ export const page_edit = (pageId, params) => {
 //删除
 export const page_delete = (pageId) => {
   return http.requestDelete(apiUrl + '/cms/page/' + pageId);
-};
-
-
-//模板页面查询
-export const template_pagelist = (page, size) => {
-  //let kv = querystring.stringify(params);
-  //请求服务端的页面查询接口
-  return http.requestQuickGet(apiUrl + '/cms/template/' + page + '/' + size);
 };
 
 

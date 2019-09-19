@@ -34,6 +34,9 @@
       <el-form-item label="物理路径" prop="pagePhysicalPath">
         <el-input v-model="pageForm.pagePhysicalPath" auto-complete="off"/>
       </el-form-item>
+      <el-form-item label="数据url" prop="dataUrl">
+        <el-input v-model="pageForm.dataUrl" auto-complete="off"/>
+      </el-form-item>
       <el-form-item label="类型" prop="pageType">
         <el-radio-group v-model="pageForm.pageType">
           <el-radio class="radio" label="0">静态</el-radio>
@@ -52,7 +55,7 @@
 </template>
 
 <script>
-    import * as cmsApi from '../api/cms'
+    import * as cmsApi from '../../../template/api/template'
 
     export default {
         name: 'pageForm',
@@ -70,6 +73,7 @@
                     pageParameter: '',
                     pagePhysicalPath: '',
                     pageType: '',
+                    dataUrl: '',
                     pageCreateTime: ''
                 },
                 rules: {
@@ -106,7 +110,7 @@
                             cancelButtonText: '取消',
                             type: 'warning'
                         }).then(() => {
-                            cmsApi.page_edit(this.pageForm.pageId,this.pageForm).then(res => {
+                            cmsApi.page_edit(this.pageForm.pageId, this.pageForm).then(res => {
                                 if (res.success) {
                                     this.$message.success('更新成功');
                                     this.$refs['pageForm'].resetFields();
@@ -140,6 +144,7 @@
             cmsApi.page_one(this.$route.params.pageId).then(res => {
                 this.pageForm = res
             }),
+
                 //初始化站点列表
                 this.siteList = [
                     {

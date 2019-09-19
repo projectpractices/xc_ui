@@ -9,9 +9,12 @@
               <el-menu-item index="1-1">
                 <router-link to="/cms/page/pagelist/">页面列表</router-link>
               </el-menu-item>
-              <!--<el-menu-item index="1-2">
-                <router-link to="/cms/page/add">新增页面</router-link>
-              </el-menu-item>-->
+              <el-menu-item index="1-2">
+                <router-link to="/cms/template/pagelist/">模板列表</router-link>
+              </el-menu-item>
+              <el-menu-item index="1-3">
+                <router-link to="/cms/template/pagelist/">模板文件</router-link>
+              </el-menu-item>
             </el-menu-item-group>
           </el-submenu>
         </el-menu>
